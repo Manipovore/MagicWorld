@@ -1,12 +1,17 @@
 package com.manipovore.ben;
 
+import com.manipovore.ben.personage.Magus;
+import com.manipovore.ben.personage.Personage;
+import com.manipovore.ben.personage.Prowler;
+import com.manipovore.ben.personage.Warrior;
+
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class Game {
 
+    private CreateGame createGame= new CreateGame();
     private Scanner sc = new Scanner(System.in);
     public int nbTotalPlayer = 2;
     private List<Personage> hero = new ArrayList<>();
@@ -14,77 +19,15 @@ public class Game {
     private int tempSelectTypeHero;
 
     /**
-     * Display all available heros in the game and select it.
-     * @params idPlayer Select hero warrior/Prowler/Magus - 1 , 2 or 3
-     */
-    public int displayAndSelectHero(int idPlayer){
-        int hero = -1;
-        boolean responseIsGood;
-        System.out.println("---------------------------------------------");
-        System.out.println("Création du personnage du Joueur " + idPlayer);
-        System.out.println("---------------------------------------------");
-        System.out.println("Veuillez choisir la classe de votre personnage (1 : Guerrier, 2 : Rôdeur, 3 : Mage)");
-        do {
-            try{
-                hero = sc.nextInt();
-                responseIsGood = true;
-                if(hero < 1 || hero > 3){
-                    System.out.println("Veuillez saisir une valeur numérique entre 1 et 3");
-                    responseIsGood = false;
-                }
-            } catch( InputMismatchException e){
-                sc.next();
-                System.out.println("Veuillez saisir un caractère numérique");
-                responseIsGood = false;
-                //return 0;
-            }
-        } while(!responseIsGood);
-
-        return this.tempSelectTypeHero = hero;
-    }
-
-    /**
-     * Display all available skills heros in the game.
-     * @params categorySkill The sentence for display the skill - level, strong ...
-     * @return valueSkill
-     */
-    private int askValueSkills(String categorySkill){
-        System.out.println(categorySkill + " du personnage ?");
-        int valueSkill = 0;
-        boolean responseIsGood;
-
-        do {
-            try{
-                valueSkill = sc.nextInt();
-                responseIsGood = true;
-            } catch( InputMismatchException e){
-                sc.next();
-                System.out.println("Veuillez saisir une valeur numérique");
-                responseIsGood = false;
-            }
-            if(valueSkill < 0 || valueSkill > 100){
-                System.out.println("Veuillez saisir une valeur numérique Positive entre 0 et 100");
-                responseIsGood = false;
-            }
-            if(categorySkill == "Niveau" && valueSkill == 0){
-                System.out.println("Le niveau ne peut être à zéro !");
-                responseIsGood = false;
-            }
-        } while(!responseIsGood);
-
-        return valueSkill;
-    }
-
-    /**
      * Init skills to player for a game.
      * @params index access Personage in List ????
      */
     private void initSkill(){
         do{
-            int level = this.askValueSkills("Niveau");
-            int strong = this.askValueSkills("Force");
-            int agility = this.askValueSkills("Agilité");
-            int intelligence = this.askValueSkills("Intelligence");
+            int level = createGame.askValueSkills("Niveau");
+            int strong = createGame.askValueSkills("Force");
+            int agility = createGame.askValueSkills("Agilité");
+            int intelligence = createGame.askValueSkills("Intelligence");
 
             int totalSkills = strong + agility + intelligence;
 
@@ -97,9 +40,9 @@ public class Game {
     }
 
     /**
-     * CreateHero Instanciate class of type Personage
+     * initHero Instanciate class of type Personage associate
      */
-    private void CreateHero(int idPlayer) {
+    private void initHero(int idPlayer) {
         switch (tempSelectTypeHero) {
             case 1:
                 this.hero.add( new Warrior(idPlayer, this.tempSkills) );
@@ -120,30 +63,66 @@ public class Game {
      * Init asking process for a game.
      * @params index access Personage in List
      */
-    private void initGame(int index) {
+    public void initGame() {
+        for (int i = 0; i < this.nbTotalPlayer ; i++){
             //display asking hero type and select it then save in temp property hero selected.
-            this.displayAndSelectHero(index + 1);
+            tempSelectTypeHero =  createGame.displayAndSelectHero(i + 1);
 
             //Init the skills hero
             this.initSkill();
 
-            //Create hero
-            this.CreateHero(index + 1);
+            //Init hero
+            this.initHero(i + 1);
 
-        this.hero.get(index).cry();
-    }
-
-    /**
-     * Init the game adn run it
-     */
-    public void runGame(){
-        for (int i = 0; i < this.nbTotalPlayer ; i++){
-            this.initGame(i);
-
+            //Cry of hero
+            this.hero.get(i).cry();
             //refresh variable temp;
             this.tempSelectTypeHero = 0;
             this.tempSkills = new int[4];
         }
     }
 
+
+    /**
+     * INIT GAME AND SYSTEM COMBAT
+     * @param idPlayer
+     */
+    public void displaySelectAttack(int idPlayer){
+            Personage personage = this.hero.get(idPlayer);
+            Personage enemy;
+            if(idPlayer == 0){
+                enemy = this.hero.get(1);
+            } else {
+                enemy = this.hero.get(0);
+            }
+            System.out.println("Joueur " + personage.getIdPlayer() + "(" + personage.getHealth() + " Vitalité) veuillez choisir votre action (1 : Attaque Basique, 2 : Attaque Spéciale)");
+            int valueAttack = sc.nextInt();
+            personage.attack(personage, enemy, valueAttack);
+    }
+
+    public void loopAttack(){
+        boolean isDead = false;
+        while(!isDead){
+            for (int i = 0; i < this.nbTotalPlayer ; i++){
+                this.displaySelectAttack(i);
+                if (!this.hero.get(0).isAlive() || !this.hero.get(1).isAlive()){
+                    isDead = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * Start the game adn run it
+     */
+    public void runGame(){
+        this.initGame();
+        this.loopAttack();
+        for(Personage hero : this.hero) {
+            if(!hero.isAlive()){
+                System.out.println("Joueur "  + hero.getIdPlayer() + " a perdu !");
+            }
+        }
+    }
 }

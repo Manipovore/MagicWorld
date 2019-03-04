@@ -29,49 +29,49 @@ class PersonageTest {
     }
 
     @Test
-    void cryWarrior() {
+    void Warrior_Cry_DisplayCorrectProcess() {
         warrior.cry();
         String[] output = outContent.toString().replace("\r\n", "\n").split("\n");
         assertEquals("Wouarg je suis le Guerrier Joueur 1 niveau 10 je possède 50 de vitalité, 10 de force, 0 d'agilité et 0 d'intelligence !", output[0]);
     }
 
     @Test
-    void cryProwler() {
+    void Prowler_Cry_DisplayCorrectProcess() {
         prowler.cry();
         String[] output = outContent.toString().replace("\r\n", "\n").split("\n");
         assertEquals("...Chut!!! je suis le Rôdeur Joueur 2 niveau 10 je possède 50 de vitalité, 5 de force, 5 d'agilité et 0 d'intelligence !", output[0]);
     }
 
     @Test
-    void cryMagus() {
+    void Magus_Cry_DisplayCorrectProcess() {
         magus.cry();
         String[] output = outContent.toString().replace("\r\n", "\n").split("\n");
         assertEquals("Abracadabra je suis le Mage Joueur 3 niveau 10 je possède 50 de vitalité, 0 de force, 0 d'agilité et 10 d'intelligence !", output[0]);
     }
 
     @Test
-    void isAliveHealth_0() {
+    void Personage_IsAlive_Health_0_CorectProcess() {
         prowler.setHealth(50);
         boolean isDead = prowler.isAlive();
         assertFalse(isDead);
     }
 
     @Test
-    void isAliveHealth_Negative() {
+    void Personage_IsAliveHealth_Negative_ErrorProcess() {
         magus.setHealth(150);
         boolean isDead = magus.isAlive();
         assertFalse(isDead);
     }
 
     @Test
-    void isAliveHealth_Positive() {
+    void Personage_IsAliveHealth_Positive_CorrectProcess() {
         warrior.setHealth(49);
         boolean isDead = warrior.isAlive();
         assertTrue(isDead);
     }
 
     @Test
-    void attackBasic_WarriorAndMagus() {
+    void Personage_AttackBasic_WarriorAndMagus_CorrectProcess() {
         do {
             warrior.attack(warrior, magus, 1);
             magus.attack(magus, warrior, 1);
@@ -82,7 +82,7 @@ class PersonageTest {
     }
 
     @Test
-    void attackSpecial_WarriorAndProwler() {
+    void Personage_AttackSpecial_WarriorAndProwler_CorrectProcess() {
         do {
             warrior.attack(warrior, prowler, 2);
             prowler.attack(prowler, warrior, 1);
@@ -98,7 +98,7 @@ class PersonageTest {
     }
 
     @Test
-    void attackSpecial_WarriorAndMagus() {
+    void Personage_AttackSpecial_WarriorAndMagus_CorrectProcess() {
         do {
             warrior.attack(warrior, magus, 2);
             magus.attack(magus, warrior, 1);

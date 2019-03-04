@@ -20,13 +20,8 @@ class CreateGameTest {
         System.setOut(new PrintStream(outContent));
     }
 
-    @BeforeEach
-    void setUp() { }
-
-
     @AfterEach
-    void tearDown() {
-    }
+    void tearDown() { }
 
 
     @Test
@@ -70,10 +65,6 @@ class CreateGameTest {
         CreateGame createGame = new CreateGame();
         int selectMagusHero = createGame.displayAndSelectHero(1);
         assertEquals( 3, selectMagusHero);
-    }
-
-    @Test
-    void askValueSkills() {
     }
 
     @Test

@@ -33,7 +33,7 @@ class GameTest {
     }
 
     @Test
-    void displaySelectAttack() {
+    void GivenPlayerAttack_WhenDisplaySelectAttack_ThenDisplayCorrectProcess_BasicAttack_WarriorAndProwler() {
         do {
             warrior.attack(warrior, prowler, 1);
             prowler.attack(prowler, warrior, 1);
@@ -44,7 +44,7 @@ class GameTest {
     }
 
     @Test
-    void displaySelectAttack1() {
+    void GivenPlayerAttack_WhenDisplaySelectAttack_ThenDisplayCorrectProcess_BasicAttack_WarriorAndMagus() {
         do {
             warrior.attack(warrior, magus, 1);
             magus.attack(magus, warrior, 1);
@@ -57,7 +57,7 @@ class GameTest {
     }
 
     @Test
-    void initGame() {
+    void GivenInputCreate2Player_WhenInitGame_ThenDisplayCorrectProcess() {
         System.setIn(new ByteArrayInputStream("3\n10\n0\n0\n10\n1\n10\n10\n0\n0\n".getBytes()));
         game = new Game();
         game.initGame();

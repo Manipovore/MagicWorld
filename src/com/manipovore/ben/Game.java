@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * This class is responsible for internizing heros by the createGame class.
+ * This class is responsible for instantiate heroes by the createGame class.
  * Then she starts the game with her attacking system that loops as long as a player is not dead.
  */
 public class Game {
@@ -99,7 +99,8 @@ public class Game {
                 enemy = this.hero.get(0);
             }
             System.out.println("Joueur " + personage.getIdPlayer() + "(" + personage.getHealth() + " Vitalité) veuillez choisir votre action (1 : Attaque Basique, 2 : Attaque Spéciale)");
-            int valueAttack = sc.nextInt();
+
+            int valueAttack = createGame.checkValue(1,2);
             personage.attack(personage, enemy, valueAttack);
     }
 

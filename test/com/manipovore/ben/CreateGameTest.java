@@ -21,7 +21,44 @@ class CreateGameTest {
     }
 
     @AfterEach
-    void tearDown() { }
+    public void restoreStreams() {
+        System.setOut(System.out);
+    }
+
+    @Test
+    void testBadIntervalValue_WhenCheckValue_ThenErrorProcess() {
+        System.setIn(new ByteArrayInputStream("0\n2".getBytes()));
+        CreateGame createGame = new CreateGame();
+        createGame.checkValue(1,3);
+        String[] output = outContent.toString().replace("\r\n", "\n").split("\n");
+        assertEquals( "Veuillez saisir une valeur numérique entre 1 et 3", output[0]);
+    }
+
+    @Test
+    void testNegativeValue_WhenCheckValue_ThenErrorProcess() {
+        System.setIn(new ByteArrayInputStream("-1\n2".getBytes()));
+        CreateGame createGame = new CreateGame();
+        createGame.checkValue(1,3);
+        String[] output = outContent.toString().replace("\r\n", "\n").split("\n");
+        assertEquals( "Veuillez saisir une valeur numérique entre 1 et 3", output[0]);
+    }
+
+    @Test
+    void testStringValue_WhenCheckValue_ThenErrorProcess() {
+        System.setIn(new ByteArrayInputStream("string\n2".getBytes()));
+        CreateGame createGame = new CreateGame();
+        createGame.checkValue(1,3);
+        String[] output = outContent.toString().replace("\r\n", "\n").split("\n");
+        assertEquals( "Veuillez saisir un caractère numérique", output[0]);
+    }
+
+    @Test
+    void testGoodValue_WhenCheckValue_ThenGoodProcess() {
+        System.setIn(new ByteArrayInputStream("2".getBytes()));
+        CreateGame createGame = new CreateGame();
+        int value = createGame.checkValue(1,3);
+        assertEquals( 2 , value);
+    }
 
 
     @Test
@@ -75,7 +112,7 @@ class CreateGameTest {
             createGame.askValueSkills("Niveau");
             String[] output = outContent.toString().replace("\r\n", "\n").split("\n");
             assertEquals( "Le niveau ne peut être à zéro !", output[1]);
-            assertEquals( "Veuillez saisir une valeur numérique Positive entre 0 et 100", output[2]);
+            assertEquals( "Veuillez saisir une valeur numérique entre 0 et 100", output[2]);
         } catch (Exception e) {
             fail("Bad compare output[int], you have modified method AskValueSkills() ?");
         }
@@ -88,7 +125,7 @@ class CreateGameTest {
             CreateGame createGame = new CreateGame();
             createGame.askValueSkills("Force");
             String[] output = outContent.toString().replace("\r\n", "\n").split("\n");
-            assertEquals( "Veuillez saisir une valeur numérique", output[1]);
+            assertEquals( "Veuillez saisir un caractère numérique", output[1]);
         } catch (Exception e) {
             fail("Bad compare output[int], you have modified method AskValueSkills() ?" + e);
         }

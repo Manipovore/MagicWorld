@@ -2,7 +2,7 @@ package com.manipovore.ben.behavior;
 
 import com.manipovore.ben.personage.Personage;
 
-public class PersonageAttack implements InterfaceAttack {
+public abstract class PersonageAttack implements InterfaceAttack {
 
     public void displayAttack(Personage personage, Personage enemy, String attackName, int damage){
         System.out.println("Joueur " + personage.getIdPlayer() + " utilise " + attackName + " et inflige " + damage + " dommages." );

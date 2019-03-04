@@ -20,7 +20,7 @@ public class MagusAttack extends PersonageAttack {
             System.out.println("Joueur " + personage.getIdPlayer() + " utilise Soin et gagne " + addHealth + " en vitalité.");
         }else{
             personage.restartHealth();
-            System.out.println("Joueur " + personage.getIdPlayer() + " utilise Soin et gagne deed" + substractMaxHealth  + " en vitalité." );
+            System.out.println("Joueur " + personage.getIdPlayer() + " utilise Soin et gagne " + substractMaxHealth  + " en vitalité." );
         }
         this.fatalAttack(enemy);
     }

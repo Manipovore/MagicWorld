@@ -13,7 +13,7 @@ public class ProwlerAttack extends PersonageAttack {
         int addLevel = personage.getAgility() / 2;
         personage.setLevel(addLevel);
 
-        System.out.println("Joueur " + personage.getIdPlayer() + " gagne en niveau (level " + addLevel + ") - ( Nouvelle Vitalité " + personage.getHealth() + " )" );
+        System.out.println("Joueur " + personage.getIdPlayer() + " gagne en niveau (level +" + addLevel + ") - ( Nouvelle Vitalité " + personage.getHealth() + " )" );
         this.fatalAttack(enemy);
     }
 }

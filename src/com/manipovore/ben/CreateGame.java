@@ -9,7 +9,7 @@ public class CreateGame {
 
     /**
      * Display in console all available heroes
-     * @param idPlayer  player identifiant - joueur 1, joueur 2
+     * @param idPlayer  The player's number - joueur 1, joueur 2
      */
     public void displaySelectHero(int idPlayer){
         System.out.println("---------------------------------------------");
@@ -20,7 +20,8 @@ public class CreateGame {
 
     /**
      * After method displaySelectHero() select an hero with scanner.
-     * @params idPlayer Select hero warrior/Prowler/Magus - 1 , 2 or 3
+     * @param idPlayer  The player's number
+     * @return hero : int - Hero selection - 1, 2 or 3
      */
     public int displayAndSelectHero(int idPlayer){
 
@@ -49,7 +50,7 @@ public class CreateGame {
     }
 
     /**
-     * Display all available skills heros in the game.
+     * Display all available skills of the hero in the game.
      * @params categorySkill The sentence for display the skill - level, strong ...
      * @return valueSkill
      */

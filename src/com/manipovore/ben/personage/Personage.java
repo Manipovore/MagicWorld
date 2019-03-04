@@ -42,7 +42,6 @@ public abstract class Personage {
     protected abstract void specialAttack(Personage personage, Personage enemy);
 
     public void attack(Personage personage, Personage enemy, int attackChoices){
-        int attackValue = 0;
         switch (attackChoices){
             case 1:
                 this.basicAttack(personage, enemy);

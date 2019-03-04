@@ -20,7 +20,6 @@ public class Game {
 
     /**
      * Init skills to player for a game.
-     * @params index access Personage in List ????
      */
     private void initSkill(){
         do{
@@ -40,7 +39,8 @@ public class Game {
     }
 
     /**
-     * initHero Instanciate class of type Personage associate
+     * initHero Instantiates the Personage child class - Warrior, Prowler or Magus
+     * @param idPlayer the player's number
      */
     private void initHero(int idPlayer) {
         switch (tempSelectTypeHero) {
@@ -60,8 +60,7 @@ public class Game {
     }
 
     /**
-     * Init asking process for a game.
-     * @params index access Personage in List
+     * Initialize process for a game.
      */
     public void initGame() {
         for (int i = 0; i < this.nbTotalPlayer ; i++){
@@ -84,8 +83,8 @@ public class Game {
 
 
     /**
-     * INIT GAME AND SYSTEM COMBAT
-     * @param idPlayer
+     * System of player selection, display and fight
+     * @param idPlayer the player's number
      */
     public void displaySelectAttack(int idPlayer){
             Personage personage = this.hero.get(idPlayer);
@@ -100,6 +99,9 @@ public class Game {
             personage.attack(personage, enemy, valueAttack);
     }
 
+    /**
+     * Attack loop as long as a player does not die
+     */
     public void loopAttack(){
         boolean isDead = false;
         while(!isDead){

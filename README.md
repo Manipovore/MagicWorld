@@ -49,26 +49,4 @@ Magus
 - Basic Attack - Fireball: Performs damage equal to the player's intelligence on the opponent.
 - Special Attack - Care: The player heals his life and regains his intelligence amount 2 times in life. Be careful, he can not have more life than he had at the beginning.
 
-Polymorphism:
-
-```mermaid
-graph LR
-A[Personage] -- Child --> B(Warrior)
-A --> C(Prowler)
-A--> D(Magus)
-B --> e{Game}
-C --> e{Game}
-D --> e
-```
-
-Behavior - Pattern Strategy:
-
-```mermaid
-graph LR
-z{InterfacePersonageAttack} -- implements--> A
-A{PersonageAttack} -- Child --> B(AttackWarrior)
-A --> C(AttackProwler)
-A--> D(AttackMagus)
-B --> e{Personage}
-C --> e{Personage}
-D --> e
+![UML](sequence.png)

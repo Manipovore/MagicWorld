@@ -3,6 +3,9 @@ package com.manipovore.ben;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * This class is responsible for displaying the processes for creating players and skills at the beginning of the game
+ */
 public class CreateGame {
 
     private Scanner sc = new Scanner(System.in);

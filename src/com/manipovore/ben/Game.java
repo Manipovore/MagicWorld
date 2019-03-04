@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * This class is responsible for internizing heros by the createGame class.
+ * Then she starts the game with her attacking system that loops as long as a player is not dead.
+ */
 public class Game {
 
     private CreateGame createGame= new CreateGame();
